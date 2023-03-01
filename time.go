@@ -95,12 +95,28 @@ func (t Time) hours() int {
 	return int(time.Duration(t).Truncate(time.Hour).Hours())
 }
 
+func (t Time) Hour() int {
+	return int(time.Duration(t).Truncate(time.Hour).Hours())
+}
+
+func (t Time) Minute() int {
+	return int((time.Duration(t) % time.Hour).Truncate(time.Minute).Minutes())
+}
+
 func (t Time) minutes() int {
 	return int((time.Duration(t) % time.Hour).Truncate(time.Minute).Minutes())
 }
 
 func (t Time) seconds() int {
 	return int((time.Duration(t) % time.Minute).Truncate(time.Second).Seconds())
+}
+
+func (t Time) Seconds() int {
+	return int((time.Duration(t) % time.Minute).Truncate(time.Second).Seconds())
+}
+
+func (t Time) Nanoseconds() int {
+	return int((time.Duration(t) % time.Second).Nanoseconds())
 }
 
 func (t Time) nanoseconds() int {
