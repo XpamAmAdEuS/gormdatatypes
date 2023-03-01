@@ -123,6 +123,10 @@ func (t Time) IsBefore(be Time) bool {
 	return t.Date(t.String()).Before(be.Date(be.String()))
 }
 
+func (t Time) IsAfter(be Time) bool {
+	return t.Date(t.String()).After(be.Date(be.String()))
+}
+
 func (t Time) Date(value string) time.Time {
 	parse, _ := time.Parse(time.TimeOnly, value)
 	return parse
