@@ -99,6 +99,35 @@ func (t Time) Hour() int {
 	return int(time.Duration(t).Truncate(time.Hour).Hours())
 }
 
+func (t Time) MinusMinutes(amount int) Time {
+	m := t.Date(t.String()).Add(-time.Minute * time.Duration(amount))
+	return newTime(m.Hour(), m.Minute(), m.Second(), m.Nanosecond())
+}
+
+func (t Time) PlusMinutes(amount int) Time {
+	m := t.Date(t.String()).Add(time.Minute * time.Duration(amount))
+	return newTime(m.Hour(), m.Minute(), m.Second(), m.Nanosecond())
+}
+
+func (t Time) MinusSeconds(amount int) Time {
+	m := t.Date(t.String()).Add(-time.Second * time.Duration(amount))
+	return newTime(m.Hour(), m.Minute(), m.Second(), m.Nanosecond())
+}
+
+func (t Time) PlusSeconds(amount int) Time {
+	m := t.Date(t.String()).Add(time.Second * time.Duration(amount))
+	return newTime(m.Hour(), m.Minute(), m.Second(), m.Nanosecond())
+}
+
+func (t Time) IsBefore(be Time) bool {
+	return t.Date(t.String()).Before(be.Date(be.String()))
+}
+
+func (t Time) Date(value string) time.Time {
+	parse, _ := time.Parse(time.TimeOnly, value)
+	return parse
+}
+
 func (t Time) Minute() int {
 	return int((time.Duration(t) % time.Hour).Truncate(time.Minute).Minutes())
 }
